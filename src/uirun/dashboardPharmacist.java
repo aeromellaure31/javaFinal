@@ -544,6 +544,7 @@ public class dashboardPharmacist extends javax.swing.JFrame {
 
     private void logoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoutMouseClicked
         String delete = ("DELETE FROM tblpurchase");
+        String updateStatus = String.format("UPDATE tblPharma SET pharmaIdentity='%s'", 0);
         Object[] options = {"Yes",
             "No"};
 
@@ -553,11 +554,12 @@ public class dashboardPharmacist extends javax.swing.JFrame {
                 options, options[0]);
         if (answer == JOptionPane.YES_OPTION) {
             Connection conn = null;
-        Statement stmt = null;
+            Statement stmt = null;
             try {
                 conn = DriverManager.getConnection(DB_URL, USER, PASS);
                 stmt = conn.createStatement();
                 stmt.executeUpdate(delete);
+                stmt.executeUpdate(updateStatus);
                 conn.close();
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
@@ -578,11 +580,12 @@ public class dashboardPharmacist extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        // TODO add your handling code here:
+        this.setVisible(false);
+        new viewAllPurchased().setVisible(true);
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked

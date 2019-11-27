@@ -249,11 +249,13 @@ public class purchase extends javax.swing.JFrame {
         int updateQuantity = 0;
         String totalQuant = null;
         String idMed = null;
+        String identity = null;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
 //        String insertMedicine = String.format("INSERT INTO tblpurchase(idMedicine,quantity) VALUES ('%s','%d')", medicineName, quant);
         String retrieveMed = String.format("Select idMedicine, medicineName, quantity from tblMedicine where medicineName='%s'", medicineName);
+        String retrieveQueryPharmacist = String.format("Select pharmaIdentity from tblPharma");
         Connection conn = null;
         Statement stmt = null;
 //        String retrieveQuery;
@@ -275,9 +277,19 @@ public class purchase extends javax.swing.JFrame {
                     stmt.executeUpdate("UPDATE tblMedicine SET quantity='" + updateQuantity + "' where medicineName='" + medicineName + "'");
                     stmt.executeUpdate(String.format("INSERT INTO tblpurchase(idMedicine,quantity) VALUES ('%s','%d')", idMed, quant));
                     stmt.executeUpdate(String.format("INSERT INTO tblAllPurchase(idMedicine,quantityPurchased,date) VALUES ('%s','%d','%s')", idMed, quant, dtf.format(now)));
+                    
+                //not final...
+                    ResultSet rs = stmt.executeQuery(retrieveQueryPharmacist);
+                    rs.next();
+                    identity = rs.getString("pharmaIdentity");
+                    if (identity.equals("1")) {
+                        new dashboardPharmacist().setVisible(true);
+                        this.setVisible(false);
+                    } else {
+                        new dashboard().setVisible(true);
+                        this.setVisible(false);
+                    }
                     conn.close();
-                    new dashboard().setVisible(true);
-                    this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Insufficient Medicine!!!");
                 }

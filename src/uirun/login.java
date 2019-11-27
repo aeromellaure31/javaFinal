@@ -17,7 +17,7 @@ public class login extends javax.swing.JFrame {
     static final String DB_URL = "jdbc:mysql://localhost/medicine";
     static final String USER = "root";
     static final String PASS = "";
-    
+
     public login() {
         initComponents();
     }
@@ -146,7 +146,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        
+
     }//GEN-LAST:event_loginActionPerformed
 
     private void logRegisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logRegisterMouseClicked
@@ -159,27 +159,46 @@ public class login extends javax.swing.JFrame {
         String pass = passInput.getText();
         String password = null;
         String userName = null;
-        
+        String identifier = null;
+
 //        String retrieveQuery = String.format("INSERT INTO medic(firstName,age,lastName,userName,password) VALUES ('%s','%d','%s','%s','%s')", firstname, age, lastname,userName,logpass);
         String retrieveQuery = String.format("Select userName, password from medic where userName='%s'", uname);
+        String retrieveQueryPharmacist = String.format("Select userName, password from tblPharma where userName='%s'", uname);
+        String updateStatus = String.format("UPDATE tblPharma SET pharmaIdentity='%s'", 1);
         Connection conn = null;
         Statement stmt = null;
-        
+
 //        String retrieveQuery;
 //        retrieveQuery = String.format("SELECT * from `medic`");
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();
-            ResultSet rsAccount = stmt.executeQuery(retrieveQuery);
-            while(rsAccount.next()){
-                password = rsAccount.getString("password");
-                userName = rsAccount.getString("userName");
-            }
-            if ((pass.equals(password) && (uname.equals(userName)))) {
-                new dashboard().setVisible(true);
-                this.setVisible(false);
+            if (uname.equals("admin")) {
+                ResultSet rs = stmt.executeQuery(retrieveQueryPharmacist);
+                while (rs.next()) {
+                    password = rs.getString("password");
+                    userName = rs.getString("userName");
+                }
+                if ((pass.equals(password) && (uname.equals(userName)))) {
+                    stmt.executeUpdate(updateStatus);
+                    new dashboardPharmacist().setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username or Password is incorrect!!!");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Password doesn't match!!! Re-type password");
+                ResultSet rsAccount = stmt.executeQuery(retrieveQuery);
+
+                while (rsAccount.next()) {
+                    password = rsAccount.getString("password");
+                    userName = rsAccount.getString("userName");
+                }
+                if ((pass.equals(password) && (uname.equals(userName)))) {
+                    new dashboard().setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Username or Password is incorrect!!!");
+                }
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

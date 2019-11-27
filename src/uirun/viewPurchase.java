@@ -342,9 +342,29 @@ public class viewPurchase extends javax.swing.JFrame {
     }//GEN-LAST:event_appNameMouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+        //Not Final
+        String identity = null;
+        String retrieveQueryPharmacist = String.format("Select pharmaIdentity from tblPharma");
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            ResultSet rsAccount = stmt.executeQuery(retrieveQueryPharmacist);
+            rsAccount.next();
+            identity = rsAccount.getString("pharmaIdentity");
+            if (identity.equals("1")) {
+                new dashboardPharmacist().setVisible(true);
+                this.setVisible(false);
+            } else {
+                new dashboard().setVisible(true);
+                this.setVisible(false);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         med.clear();
-        this.setVisible(false);
-        new dashboard().setVisible(true);
     }//GEN-LAST:event_jButton6MouseClicked
 
     /**
