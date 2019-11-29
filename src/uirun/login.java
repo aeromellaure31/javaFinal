@@ -5,10 +5,8 @@
  */
 package uirun;
 
-import java.awt.HeadlessException;
+
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class login extends javax.swing.JFrame {
@@ -161,15 +159,12 @@ public class login extends javax.swing.JFrame {
         String userName = null;
         String identifier = null;
 
-//        String retrieveQuery = String.format("INSERT INTO medic(firstName,age,lastName,userName,password) VALUES ('%s','%d','%s','%s','%s')", firstname, age, lastname,userName,logpass);
         String retrieveQuery = String.format("Select userName, password from medic where userName='%s'", uname);
         String retrieveQueryPharmacist = String.format("Select userName, password from tblPharma where userName='%s'", uname);
         String updateStatus = String.format("UPDATE tblPharma SET pharmaIdentity='%s'", 1);
         Connection conn = null;
         Statement stmt = null;
 
-//        String retrieveQuery;
-//        retrieveQuery = String.format("SELECT * from `medic`");
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();

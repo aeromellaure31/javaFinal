@@ -5,10 +5,7 @@
  */
 package uirun;
 
-import java.awt.HeadlessException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 public class register extends javax.swing.JFrame {

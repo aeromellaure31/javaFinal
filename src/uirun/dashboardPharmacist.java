@@ -5,18 +5,10 @@
  */
 package uirun;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.HeadlessException;
-import java.beans.XMLDecoder;
-import java.io.ByteArrayInputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
-import javax.swing.*;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class dashboardPharmacist extends javax.swing.JFrame {
 
@@ -106,6 +98,7 @@ public class dashboardPharmacist extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        logout1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -240,6 +233,14 @@ public class dashboardPharmacist extends javax.swing.JFrame {
             }
         });
 
+        logout1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        logout1.setText("Delete Medicine");
+        logout1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logout1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout FlixotideLayout = new javax.swing.GroupLayout(Flixotide);
         Flixotide.setLayout(FlixotideLayout);
         FlixotideLayout.setHorizontalGroup(
@@ -268,19 +269,20 @@ public class dashboardPharmacist extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(81, 81, 81))
                     .addGroup(FlixotideLayout.createSequentialGroup()
-                        .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(FlixotideLayout.createSequentialGroup()
-                                .addGap(317, 317, 317)
-                                .addComponent(medicineName))
-                            .addGroup(FlixotideLayout.createSequentialGroup()
-                                .addGap(129, 129, 129)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(logout)))
+                        .addGap(317, 317, 317)
+                        .addComponent(medicineName)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(FlixotideLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jButton6)
+                .addGap(18, 18, 18)
+                .addComponent(jButton4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(logout1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(logout)
+                .addGap(29, 29, 29))
         );
         FlixotideLayout.setVerticalGroup(
             FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,7 +300,8 @@ public class dashboardPharmacist extends javax.swing.JFrame {
                 .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6)
                     .addComponent(logout)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(logout1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
@@ -619,6 +622,10 @@ public class dashboardPharmacist extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void logout1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logout1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_logout1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -676,6 +683,7 @@ public class dashboardPharmacist extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JButton logout;
+    private javax.swing.JButton logout1;
     private javax.swing.JTable medTable;
     private javax.swing.JLabel medicineName;
     private java.awt.TextField search;

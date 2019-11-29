@@ -5,18 +5,9 @@
  */
 package uirun;
 
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.HeadlessException;
-import java.beans.XMLDecoder;
-import java.io.ByteArrayInputStream;
 import java.sql.*;
 import java.util.ArrayList;
-import static java.util.Collections.list;
 import java.util.List;
-import javax.swing.*;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
 public class viewAllPurchased extends javax.swing.JFrame {
 
