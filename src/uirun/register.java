@@ -6,10 +6,13 @@
 package uirun;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class register extends javax.swing.JFrame {
 
+    List user = new ArrayList();
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/medicine";
     static final String USER = "root";
@@ -228,35 +231,44 @@ public class register extends javax.swing.JFrame {
 
     private void registerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerMouseClicked
         String firstname = fnameInput.getText();
-        int age = Integer.parseInt(ageInput.getText());
+        String age = ageInput.getText();
         String lastname = lnameInput.getText();
         String userName = unameInput.getText();
         String logpass = pass.getText();
         String repass = rePass.getText();
-        if (lastname == null || firstname == "" || userName == "" || logpass == "" || repass == "") {
+        String name = null;
+        if (lastname.equals("") || firstname.equals("") || userName.equals("") || logpass.equals("") || repass.equals("") || age.equals("")) {
             JOptionPane.showMessageDialog(null, "All fields are required!!!");
-        }
+        } else {
+            String insertQuery = String.format("INSERT INTO medic(firstName,age,lastName,userName,password) VALUES ('%s','%d','%s','%s','%s')", firstname, Integer.parseInt(ageInput.getText()), lastname, userName, logpass);
+            String fetchData = ("SELECT userName FROM medic");
+            Connection conn = null;
+            Statement stmt = null;
 
-        String insertQuery = String.format("INSERT INTO medic(firstName,age,lastName,userName,password) VALUES ('%s','%d','%s','%s','%s')", firstname, age, lastname, userName, logpass);
-        Connection conn = null;
-        Statement stmt = null;
-//        String retrieveQuery;
-//        retrieveQuery = String.format("SELECT * from `medic`");
-        try {
-            conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            stmt = conn.createStatement();
-            if ((logpass.equals(repass))) {
-                stmt.executeUpdate(insertQuery);
-                conn.close();
-                new login().setVisible(true);
-                this.setVisible(false);
-            } else {
-                JOptionPane.showMessageDialog(null, "Password doesn't match!Re-type password");
+            try {
+                conn = DriverManager.getConnection(DB_URL, USER, PASS);
+                stmt = conn.createStatement();
+                ResultSet rsAccount = stmt.executeQuery(fetchData);
+                while (rsAccount.next()) {
+                    name = rsAccount.getString("userName");
+                    user.add(name);
+                }
+                if (user.contains(userName)) {
+                    JOptionPane.showMessageDialog(null, "UserName already exist!!!");
+                } else if (logpass.length() < 6) {
+                    JOptionPane.showMessageDialog(null, "Password is weak!!!");
+                } else if ((logpass.equals(repass))) {
+                    stmt.executeUpdate(insertQuery);
+                    conn.close();
+                    new login().setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Password doesn't match!Re-type password");
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
-
     }//GEN-LAST:event_registerMouseClicked
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed

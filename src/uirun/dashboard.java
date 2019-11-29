@@ -11,15 +11,24 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 public class dashboard extends javax.swing.JFrame {
-
+    private int age;
     List med = new ArrayList();
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/medicine";
     static final String USER = "root";
     static final String PASS = "";
+    
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public dashboard() {
         initComponents();
+        System.out.println(getAge());
         med.clear();
         String medName = medicineName.getText();
 //        String pass = passInput.getText();
@@ -520,6 +529,19 @@ public class dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutMouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+//        String retrieveMed = String.format("Select age from medic where userName='%s'", medName);
+        Connection conn = null;
+        Statement stmt = null;
+
+//        String retrieveQuery;
+//        retrieveQuery = String.format("SELECT * from `medic`");
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         this.setVisible(false);
         new purchase().setVisible(true);
     }//GEN-LAST:event_jButton6MouseClicked

@@ -158,8 +158,9 @@ public class login extends javax.swing.JFrame {
         String password = null;
         String userName = null;
         String identifier = null;
+        String age = null;
 
-        String retrieveQuery = String.format("Select userName, password from medic where userName='%s'", uname);
+        String retrieveQuery = String.format("Select userName, password, age from medic where userName='%s'", uname);
         String retrieveQueryPharmacist = String.format("Select userName, password from tblPharma where userName='%s'", uname);
         String updateStatus = String.format("UPDATE tblPharma SET pharmaIdentity='%s'", 1);
         Connection conn = null;
@@ -187,9 +188,11 @@ public class login extends javax.swing.JFrame {
                 while (rsAccount.next()) {
                     password = rsAccount.getString("password");
                     userName = rsAccount.getString("userName");
+                    age = rsAccount.getString("age");
                 }
                 if ((pass.equals(password) && (uname.equals(userName)))) {
-                    new dashboard().setVisible(true);
+                    dashboard d = new dashboard();
+                    d.setVisible(true);
                     this.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(null, "Username or Password is incorrect!!!");

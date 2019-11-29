@@ -281,13 +281,10 @@ public class purchase extends javax.swing.JFrame {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
-//        String insertMedicine = String.format("INSERT INTO tblpurchase(idMedicine,quantity) VALUES ('%s','%d')", medicineName, quant);
         String retrieveMed = String.format("Select idMedicine, medicineName, quantity from tblMedicine where medicineName='%s'", medicineName);
         String retrieveQueryPharmacist = String.format("Select pharmaIdentity from tblPharma");
         Connection conn = null;
         Statement stmt = null;
-//        String retrieveQuery;
-//        retrieveQuery = String.format("SELECT * from `medic`");
         try {
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();
