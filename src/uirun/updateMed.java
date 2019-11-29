@@ -18,15 +18,16 @@ import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class addMed extends javax.swing.JFrame {
+public class updateMed extends javax.swing.JFrame {
 
+    List allMed = new ArrayList();
     List med = new ArrayList();
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/medicine";
     static final String USER = "root";
     static final String PASS = "";
 
-    public addMed() {
+    public updateMed() {
         initComponents();
     }
 
@@ -70,6 +71,9 @@ public class addMed extends javax.swing.JFrame {
         quantity = new javax.swing.JTextField();
         medType = new javax.swing.JTextField();
         genName = new javax.swing.JTextField();
+        searchMed = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -162,7 +166,7 @@ public class addMed extends javax.swing.JFrame {
         Flixotide.setBackground(new java.awt.Color(153, 153, 153));
 
         addMed.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        addMed.setText("Add Medicine");
+        addMed.setText("Update Medicine");
         addMed.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 addMedMouseClicked(evt);
@@ -170,7 +174,7 @@ public class addMed extends javax.swing.JFrame {
         });
 
         medicineName2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        medicineName2.setText("----Add Medicine----");
+        medicineName2.setText("---Update Medicine---");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Medicine Type:");
@@ -226,56 +230,80 @@ public class addMed extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel9.setText("What Medicine???");
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton1.setText("Search");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout FlixotideLayout = new javax.swing.GroupLayout(Flixotide);
         Flixotide.setLayout(FlixotideLayout);
         FlixotideLayout.setHorizontalGroup(
             FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(FlixotideLayout.createSequentialGroup()
-                .addGap(48, 48, 48)
-                .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(FlixotideLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(31, 31, 31)
-                        .addComponent(brandName))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlixotideLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(medName))
-                    .addGroup(FlixotideLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                        .addComponent(medType, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(FlixotideLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addGap(54, 54, 54)
-                        .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FlixotideLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(86, 86, 86)
-                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(FlixotideLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(genName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlixotideLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(82, 82, 82)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(searchMed, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(FlixotideLayout.createSequentialGroup()
                 .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FlixotideLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(medicineName2))
+                    .addGroup(FlixotideLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(FlixotideLayout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addGap(31, 31, 31)
+                                .addComponent(brandName))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlixotideLayout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(medName))
+                            .addGroup(FlixotideLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                                .addComponent(medType, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(FlixotideLayout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(54, 54, 54)
+                                .addComponent(quantity, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(FlixotideLayout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addGap(86, 86, 86)
+                                .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(FlixotideLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(genName, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlixotideLayout.createSequentialGroup()
-                        .addComponent(medicineName2)
-                        .addGap(169, 169, 169))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FlixotideLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(addMed)
-                        .addGap(271, 271, 271))))
+                        .addGap(207, 207, 207)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         FlixotideLayout.setVerticalGroup(
             FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(FlixotideLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(medicineName2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jButton1)
+                        .addComponent(searchMed, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,7 +313,7 @@ public class addMed extends javax.swing.JFrame {
                 .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(price, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(medName, javax.swing.GroupLayout.DEFAULT_SIZE, 43, Short.MAX_VALUE)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -295,9 +323,9 @@ public class addMed extends javax.swing.JFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(brandName, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
                     .addComponent(quantity, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(addMed)
-                .addGap(27, 27, 27))
+                .addContainerGap())
         );
 
         jLabel2.setFont(new java.awt.Font("Wide Latin", 1, 48)); // NOI18N
@@ -362,6 +390,7 @@ public class addMed extends javax.swing.JFrame {
     }//GEN-LAST:event_appNameMouseClicked
 
     private void addMedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMedMouseClicked
+        String searched = searchMed.getText();
         String medicineType = medType.getText();
         String medicineName = medName.getText();
         String brName = brandName.getText();
@@ -369,8 +398,7 @@ public class addMed extends javax.swing.JFrame {
         int pr = Integer.parseInt(price.getText());
         int quant = Integer.parseInt(quantity.getText());
         String fetchMedName = null;
-
-        String insertQuery = String.format("INSERT INTO tblMedicine(medicineName,brandName,genericName,quantity,price,medicineType) VALUES ('%s', '%s', '%s', '%d', '%d', '%s')", medicineName, brName, genericName, quant, pr, medicineType);
+        String updateQuery = String.format("UPDATE tblmedicine SET medicineName='%s' ,brandName='%s' ,genericName='%s' ,price='%d',quantity='%d' ,medicineType='%s' WHERE medicineName='%s'", medicineName, brName, genericName, pr, quant, medicineType, searched);
         String fetchQuery = ("Select medicineName from tblmedicine");
         Connection conn = null;
         Statement stmt = null;
@@ -385,8 +413,14 @@ public class addMed extends javax.swing.JFrame {
                     fetchMedName = rsAccount.getString("medicineName");
                     med.add(fetchMedName);
                 }
-                if (!med.contains(medicineName)) {
-                    stmt.executeUpdate(insertQuery);
+                if (searched.equalsIgnoreCase(medicineName)) {
+                    stmt.executeUpdate(updateQuery);
+                    new dashboardPharmacist().setVisible(true);
+                    this.setVisible(false);
+                    conn.close();
+                    med.clear();
+                } else if (!med.contains(medicineName)) {
+                    stmt.executeUpdate(updateQuery);
                     new dashboardPharmacist().setVisible(true);
                     this.setVisible(false);
                     conn.close();
@@ -426,6 +460,40 @@ public class addMed extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_genNameActionPerformed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        String searched = searchMed.getText();
+        String fetchMed = String.format("SELECT * FROM tblMedicine WHERE medicineName='%s'", searched);
+        String fetchAll = String.format("SELECT medicineName FROM tblMedicine");
+        String data = null;
+        Connection conn = null;
+        Statement stmt = null;
+//        String retrieveQuery;
+//        retrieveQuery = String.format("SELECT * from `medic`");
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(fetchAll);
+            while (rs.next()) {
+                data = rs.getString("medicineName");
+                allMed.add(data.toLowerCase());
+            }
+            if (allMed.contains(searched.toLowerCase())) {
+                ResultSet rsAccount = stmt.executeQuery(fetchMed);
+                rsAccount.next();
+                medType.setText(rsAccount.getString("medicineType"));
+                medName.setText(rsAccount.getString("medicineName"));
+                brandName.setText(rsAccount.getString("brandName"));
+                genName.setText(rsAccount.getString("genericName"));
+                price.setText(rsAccount.getString("price"));
+                quantity.setText(rsAccount.getString("quantity"));
+            } else {
+                JOptionPane.showMessageDialog(null, "No Medicine Match your Search!!!");
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -443,14 +511,30 @@ public class addMed extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(addMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(addMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(addMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(addMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateMed.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -471,7 +555,7 @@ public class addMed extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new addMed().setVisible(true);
+                new updateMed().setVisible(true);
             }
         });
     }
@@ -482,6 +566,7 @@ public class addMed extends javax.swing.JFrame {
     private javax.swing.JLabel appName;
     private javax.swing.JTextField brandName;
     private javax.swing.JTextField genName;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -490,6 +575,7 @@ public class addMed extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -510,5 +596,6 @@ public class addMed extends javax.swing.JFrame {
     private javax.swing.JTextField price;
     private javax.swing.JTextField quantity;
     private java.awt.TextField search;
+    private javax.swing.JTextField searchMed;
     // End of variables declaration//GEN-END:variables
 }

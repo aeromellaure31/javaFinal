@@ -230,15 +230,53 @@ public class purchase extends javax.swing.JFrame {
     private void appNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appNameMouseClicked
         quantity.setText("");
         medName.setText("");
-        this.setVisible(false);
-        new dashboard().setVisible(true);
+        String identity = null;
+        String retrieveQueryPharmacist = String.format("Select pharmaIdentity from tblPharma");
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            ResultSet rsAccount = stmt.executeQuery(retrieveQueryPharmacist);
+            rsAccount.next();
+            identity = rsAccount.getString("pharmaIdentity");
+            if (identity.equals("1")) {
+                new dashboardPharmacist().setVisible(true);
+                this.setVisible(false);
+            } else {
+                new dashboard().setVisible(true);
+                this.setVisible(false);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_appNameMouseClicked
 
     private void cancelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cancelMouseClicked
         quantity.setText("");
         medName.setText("");
-        this.setVisible(false);
-        new dashboard().setVisible(true);
+        String retrieveQueryPharmacist = String.format("Select pharmaIdentity from tblPharma");
+        String identity = null;
+        Connection conn = null;
+        Statement stmt = null;
+        try {
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(retrieveQueryPharmacist);
+            rs.next();
+            identity = rs.getString("pharmaIdentity");
+            if (identity.equals("1")) {
+                new dashboardPharmacist().setVisible(true);
+                this.setVisible(false);
+            } else {
+                new dashboard().setVisible(true);
+                this.setVisible(false);
+            }
+            conn.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_cancelMouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
@@ -277,8 +315,8 @@ public class purchase extends javax.swing.JFrame {
                     stmt.executeUpdate("UPDATE tblMedicine SET quantity='" + updateQuantity + "' where medicineName='" + medicineName + "'");
                     stmt.executeUpdate(String.format("INSERT INTO tblpurchase(idMedicine,quantity) VALUES ('%s','%d')", idMed, quant));
                     stmt.executeUpdate(String.format("INSERT INTO tblAllPurchase(idMedicine,quantityPurchased,date) VALUES ('%s','%d','%s')", idMed, quant, dtf.format(now)));
-                    
-                //not final...
+
+                    //not final...
                     ResultSet rs = stmt.executeQuery(retrieveQueryPharmacist);
                     rs.next();
                     identity = rs.getString("pharmaIdentity");

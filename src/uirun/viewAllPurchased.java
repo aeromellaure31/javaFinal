@@ -34,8 +34,8 @@ public class viewAllPurchased extends javax.swing.JFrame {
         String date = null;
 
 //        String count = ("SELECT SUM(p.quantity * m.price) AS totalPrice FROM tblpurchase p LEFT JOIN tblmedicine m ON p.idMedicine = m.idMedicine");
-        String retrieveMed = String.format("Select COUNT(idPurchase) from tblAllPurchase");
-        String retrievePurchased = String.format("Select m.medicineName, p.quantity, m.price, p.date FROM tblAllPurchase p LEFT JOIN tblmedicine m ON p.idMedicine = m.idMedicine");
+        String retrieveMed = String.format("Select COUNT(idAllPurchase) from tblAllPurchase");
+        String retrievePurchased = String.format("Select m.medicineName, p.quantityPurchased, m.price, p.date FROM tblAllPurchase p LEFT JOIN tblmedicine m ON p.idMedicine = m.idMedicine");
         Connection conn = null;
         Statement stmt = null;
 //        String retrieveQuery;
@@ -46,7 +46,7 @@ public class viewAllPurchased extends javax.swing.JFrame {
             ResultSet rsAccount = stmt.executeQuery(retrievePurchased);
             while (rsAccount.next()) {
                 medicName = rsAccount.getString("medicineName");
-                quantity = rsAccount.getString("quantity");
+                quantity = rsAccount.getString("quantityPurchased");
                 price = rsAccount.getString("price");
                 date = rsAccount.getString("date");
 //                System.out.println(medicName + " " + brandName + " " + genName + " " + price);
@@ -211,29 +211,29 @@ public class viewAllPurchased extends javax.swing.JFrame {
         medTable.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         medTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Medicine Name", "Quantity Purchased", "Price"
+                "Medicine Name", "Quantity Purchased", "Price", "Date"
             }
         ));
         jScrollPane7.setViewportView(medTable);
@@ -329,7 +329,8 @@ public class viewAllPurchased extends javax.swing.JFrame {
     }//GEN-LAST:event_searchActionPerformed
 
     private void appNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_appNameMouseClicked
-
+        this.setVisible(false);
+        new dashboardPharmacist().setVisible(true);
     }//GEN-LAST:event_appNameMouseClicked
 
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked

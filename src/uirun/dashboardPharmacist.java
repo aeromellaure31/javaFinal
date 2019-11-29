@@ -105,6 +105,7 @@ public class dashboardPharmacist extends javax.swing.JFrame {
         logout = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -226,6 +227,19 @@ public class dashboardPharmacist extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jButton8.setText("Update Medicine");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout FlixotideLayout = new javax.swing.GroupLayout(Flixotide);
         Flixotide.setLayout(FlixotideLayout);
         FlixotideLayout.setHorizontalGroup(
@@ -246,25 +260,27 @@ public class dashboardPharmacist extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jScrollPane2)))
                     .addGroup(FlixotideLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(81, 81, 81))
+                    .addGroup(FlixotideLayout.createSequentialGroup()
                         .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(FlixotideLayout.createSequentialGroup()
-                                .addGap(145, 145, 145)
+                                .addGap(317, 317, 317)
+                                .addComponent(medicineName))
+                            .addGroup(FlixotideLayout.createSequentialGroup()
+                                .addGap(129, 129, 129)
                                 .addComponent(jButton6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4)
-                                .addGap(10, 10, 10)
-                                .addComponent(logout))
-                            .addGroup(FlixotideLayout.createSequentialGroup()
-                                .addGap(317, 317, 317)
-                                .addComponent(medicineName)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(logout)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(FlixotideLayout.createSequentialGroup()
-                .addGap(198, 198, 198)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         FlixotideLayout.setVerticalGroup(
             FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -286,7 +302,8 @@ public class dashboardPharmacist extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(FlixotideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton8))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -589,8 +606,18 @@ public class dashboardPharmacist extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4MouseClicked
 
     private void jButton7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton7MouseClicked
-        // TODO add your handling code here:
+        this.setVisible(false);
+        new addMed().setVisible(true);
     }//GEN-LAST:event_jButton7MouseClicked
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        this.setVisible(false);
+        new updateMed().setVisible(true);
+    }//GEN-LAST:event_jButton8MouseClicked
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -639,6 +666,7 @@ public class dashboardPharmacist extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
